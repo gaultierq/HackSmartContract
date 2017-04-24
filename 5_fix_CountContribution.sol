@@ -5,7 +5,7 @@
 contract CountContribution{
     mapping(address => uint) public contribution;
     uint public totalContributions;
-    address owner=msg.sender;
+    address owner = msg.sender;
 
     /// @dev Constructor, count a contribution of 1 ETH to the creator.
     function CountContribution() public {
@@ -22,6 +22,8 @@ contract CountContribution{
      *  @param _amount The amount of the contribution.
      */
     function recordContribution(address _user, uint _amount) {
+        require(contribution[_user] + _amount >= contribution[_user]);
+        require(totalContributions + _amount >= totalContributions);
         contribution[_user]+=_amount;
         totalContributions+=_amount;
     }
